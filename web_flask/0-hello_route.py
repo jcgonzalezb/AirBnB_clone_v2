@@ -7,10 +7,10 @@ from flask import Flask, escape, request
 app = Flask(__name__)
 
 
-@app.route('/')
-def hello():
+@app.route('/', methods=("GET", "POST"), strict_slashes=False)
+def index():
     """Function that displays 'Hello HBNB!'"""
-    return '"Hello HBNB!"'
+    return "Hello HBNB!"
 
 
 if __name__ == "__main__":
