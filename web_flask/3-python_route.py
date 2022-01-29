@@ -3,7 +3,6 @@
 Script that starts a Flask web application
 """
 from flask import Flask
-from markupsafe import escape
 
 app = Flask(__name__)
 
@@ -26,17 +25,12 @@ def text(text):
     return "C {}".format(escape(text.replace("_", " ")))
 
 
+@app.route('/python/')
 @app.route('/python')
 @app.route('/python/<text>', methods=("GET", "POST"), strict_slashes=False)
 def python_text(text='is cool'):
     """Display “Python” followed by the value of the text variable"""
-    return "Python {}".format(escape(text.replace("_", " ")))
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    """inbuilt function which takes error as parameter"""
-    return "Python is cool"
+    return "Python {}".format(text.replace("_", " "))
 
 
 if __name__ == "__main__":
