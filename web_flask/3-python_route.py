@@ -26,6 +26,7 @@ def text(text):
     return "C {}".format(escape(text.replace("_", " ")))
 
 
+@app.route('/python')
 @app.route('/python/<text>', methods=("GET", "POST"), strict_slashes=False)
 def python_text(text='is cool'):
     """Display “Python” followed by the value of the text variable"""
@@ -39,4 +40,4 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
