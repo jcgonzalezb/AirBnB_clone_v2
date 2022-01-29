@@ -26,7 +26,7 @@ def text(text):
     return "C {}".format(escape(text.replace("_", " ")))
 
 
-@app.route('/python/(<text>)', methods=("GET", "POST"), strict_slashes=False)
+@app.route('/python/<text>', methods=("GET", "POST"), strict_slashes=False)
 def python_text(text='is cool'):
     """Display “Python” followed by the value of the text variable"""
     return "Python {}".format(escape(text.replace("_", " ")))
