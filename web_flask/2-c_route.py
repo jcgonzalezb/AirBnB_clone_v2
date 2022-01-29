@@ -22,7 +22,7 @@ def hbnb():
 
 @app.route('/c/<text>', methods=("GET", "POST"), strict_slashes=False)
 def text(text):
-    """Function that displays 'HBNB'"""
+    """Display “C” followed by the value of the text variable"""
     return "C {}".format(escape(text.replace("_", " ")))
 
 
