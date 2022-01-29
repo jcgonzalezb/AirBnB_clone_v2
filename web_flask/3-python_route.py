@@ -34,6 +34,7 @@ def python_text(text='is cool'):
 
 @app.errorhandler(404)
 def page_not_found(e):
+    """inbuilt function which takes error as parameter"""
     return "Python is cool"
 
 
