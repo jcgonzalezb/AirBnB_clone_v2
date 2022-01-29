@@ -3,6 +3,7 @@
 Script that starts a Flask web application
 """
 from flask import Flask
+from markupsafe import escape
 
 app = Flask(__name__)
 
@@ -17,6 +18,12 @@ def index():
 def hbnb():
     """Function that displays 'HBNB'"""
     return "HBNB"
+
+
+@app.route('/c/<text>', methods=("GET", "POST"), strict_slashes=False)
+def text(text):
+    """Function that displays 'HBNB'"""
+    return "C {}".format(escape(text.replace("_", " ")))
 
 
 if __name__ == "__main__":
