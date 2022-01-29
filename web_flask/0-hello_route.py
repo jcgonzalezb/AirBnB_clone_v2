@@ -12,5 +12,6 @@ def index():
     """Function that displays 'Hello HBNB!'"""
     return "Hello HBNB!"
 
+
 if __name__ == "__main__":
     app.run(debug=True)
