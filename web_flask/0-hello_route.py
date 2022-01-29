@@ -1,8 +1,17 @@
 #!/usr/bin/python3
 """
-Fabric script that distributes an archive to a pair of
-web servers, using the function do_deploy.
+Script that starts a Flask web application
 """
-from fabric.api import run, put, env, local
-import os
-from datetime import datetime
+from flask import Flask, escape, request
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def hello():
+    """Function that displays 'Hello HBNB!'"""
+    return '"Hello HBNB!"'
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
