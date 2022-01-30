@@ -18,13 +18,13 @@ class State(BaseModel, Base):
     else:
         name = ""
 
-    @property
-    def cities(self):
-        """ Return list of city instances if
-        City.state_id==current State.id.
-        FileStorage relationship between State and City"""
-        list_cities = []
-        for city in models.storage.all("City").values():
-            if city.state_id == self.id:
-                list_cities.append(city)
-        return list_cities
+        @property
+        def cities(self):
+            """ Return list of city instances if
+            City.state_id==current State.id.
+            FileStorage relationship between State and City"""
+            list_cities = []
+            for city in models.storage.all("City").values():
+                if city.state_id == self.id:
+                    list_cities.append(city)
+            return list_cities
