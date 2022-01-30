@@ -7,6 +7,7 @@ from sqlalchemy.orm import scoped_session
 from models.base_model import Base
 import models
 
+
 class DBStorage:
     """This class manages storage of hbnb models in database format"""
     __engine = None
@@ -38,7 +39,6 @@ class DBStorage:
             new_dict[k] = obj
         return new_dict
 
-
     def new(self, obj):
         """Add the object to the current database session"""
         self.__session.add(obj)
@@ -64,7 +64,8 @@ class DBStorage:
 
         self.__session = Base.metadata.create_all(self.__engine)
 
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(
+            bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
 
