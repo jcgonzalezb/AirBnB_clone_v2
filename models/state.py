@@ -20,8 +20,8 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
-        """ Return list of city instances if City.state_id==current
-        State.id
+        """ Return list of city instances if
+        City.state_id==current State.id.
         FileStorage relationship between State and City"""
         list_cities = []
         for city in models.storage.all("City").values():
