@@ -53,7 +53,6 @@ def even_or_odd(n):
     Display if the number is odd or even"""
 
     if (n % 2) == 0:
-
         context = {
             'n': n,
             'm': "even"
