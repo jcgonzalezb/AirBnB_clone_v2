@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 from models.base_model import Base
 import models
+from models.base_model import Base
 
 
 class DBStorage:
@@ -16,7 +17,9 @@ class DBStorage:
     def __init__(self):
         """Returns a dictionary of models currently in storage"""
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
-            getenv('HBNB_MYSQL_USER'), getenv('HBNB_MYSQL_PWD'), getenv('HBNB_MYSQL_HOST'), getenv('HBNB_MYSQL_DB'), pool_pre_ping=True))
+            getenv('HBNB_MYSQL_USER'), getenv('HBNB_MYSQL_PWD'),
+            getenv('HBNB_MYSQL_HOST'), getenv('HBNB_MYSQL_DB'),
+            pool_pre_ping=True))
         Session = sessionmaker(bind=self.__engine)
         self.__session = Session()
 
