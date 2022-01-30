@@ -48,7 +48,7 @@ def html_if_int(n):
 
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
-def html_if_int(n):
+def even_or_odd(n):
     """Display a HTML page only if n is an integer.
     Display if the number is odd or even"""
 
