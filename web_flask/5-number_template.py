@@ -2,8 +2,7 @@
 """
 Script that starts a Flask web application
 """
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
@@ -43,7 +42,7 @@ def number(n):
 
 
 @app.route('/number_template/<int:n>', methods=("GET", "POST"), strict_slashes=False)
-def template(n: int):
+def html_if_int(n):
     """Display a HTML page only if n is an integer"""
     if isinstance(n, int):
         context = {
