@@ -2,6 +2,7 @@
 """BaseModel module """
 import uuid
 from datetime import datetime
+import models
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql.expression import delete
