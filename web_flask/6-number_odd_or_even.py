@@ -51,19 +51,18 @@ def html_if_int(n):
 def even_or_odd(n):
     """Display a HTML page only if n is an integer.
     Display if the number is odd or even"""
-
-    if (n % 2) == 0:
-        context = {
-            'n': n,
-            'm': "even"
-        }
-    else:
-        context = {
-            'n': n,
-            'm': "odd"
-        }
-
-    return render_template('6-number_odd_or_even.html', **context)
+    if isinstance(n, int):
+        if (n % 2) == 0:
+            context = {
+                'n': n,
+                'm': "even"
+            }
+        else:
+            context = {
+                'n': n,
+                'm': "odd"
+            }
+        return render_template('6-number_odd_or_even.html', **context)
 
 
 if __name__ == "__main__":
