@@ -15,12 +15,13 @@ class FileStorage:
         if cls is None:
             return self.__objects
 
-        if cls is not None:
-            for k, v in FileStorage.__objects.items():
-                if cls == k.split('.')[0]:
+        if cls != "":
+            for k, v in self.__objects.items():
+                if cls == k.split(".")[0]:
                     new_dict[k] = v
             return new_dict
-        return FileStorage.__objects
+        else:
+            return self.__objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
