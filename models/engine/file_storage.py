@@ -14,14 +14,11 @@ class FileStorage:
         new_dict = {}
         if cls is None:
             return self.__objects
-
-        if cls != "":
+        else:
             for k, v in self.__objects.items():
-                if cls == k.split(".")[0]:
+                if v.__class__ == cls:
                     new_dict[k] = v
             return new_dict
-        else:
-            return self.__objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
