@@ -21,16 +21,16 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
-               'BaseModel': BaseModel, 'User': User, 'Place': Place,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
-              }
+        'BaseModel': BaseModel, 'User': User, 'Place': Place,
+        'State': State, 'City': City, 'Amenity': Amenity,
+        'Review': Review
+    }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
-             'number_rooms': int, 'number_bathrooms': int,
-             'max_guest': int, 'price_by_night': int,
-             'latitude': float, 'longitude': float
-            }
+        'number_rooms': int, 'number_bathrooms': int,
+        'max_guest': int, 'price_by_night': int,
+        'latitude': float, 'longitude': float
+    }
 
     def preloop(self):
         """Prints if isatty is false"""
@@ -131,7 +131,7 @@ class HBNBCommand(cmd.Cmd):
             print(new_instance.id)
         else:
             new_instance = HBNBCommand.classes[argument[0]]()
-            for i in range(1,len(argument)):
+            for i in range(1, len(argument)):
                 keyword = argument[i].split('=')
                 value = json.loads(keyword[1])
                 if type(value) is str:
@@ -217,7 +217,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         print_list = []
-        if args: # este me indica que hay argumentos (all clase)
+        if args:  # este me indica que hay argumentos (all clase)
             args = args.split(' ')[0]
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
@@ -225,7 +225,7 @@ class HBNBCommand(cmd.Cmd):
             for k, v in storage.all(args).items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
-        else: #caso donde esta all solo
+        else:  # caso donde esta all solo
             for k, v in storage.all().items():
                 print_list.append(str(v))
         print(print_list)
@@ -334,6 +334,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
