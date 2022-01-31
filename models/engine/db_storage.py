@@ -4,9 +4,13 @@ from sqlalchemy import create_engine, MetaData
 from os import getenv
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
-from models.base_model import Base
-import models
-from models.base_model import Base
+from models.base_model import Base, BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 
 class DBStorage:
@@ -27,20 +31,18 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage"""
+        """Get a dictionary of all objects
+        Return:
+            returns a dictionary of objects
+        """
         if cls is None:
-            new_dict = {}
-            for q in self.__session.query().all():
-                k = '{}.{}'.format(q.__class__.__name__, q.id)
-                new_dict[k] = q
-            return new_dict
-
-        new_dict = {}
-        objs = self.__session.query(models.classes[cls]).all()
-        for obj in objs:
-            k = '{}.{}'.format(obj.__class__.__name__, obj.id)
-            new_dict[k] = obj
-        return new_dict
+            classes = {Amenity, City, Place, Review, State, User}
+            return {'{}.{}'.format(type(obj).__name__, obj.id): obj
+                    for res in map(self.__session.query, classes)
+                    for obj in res}
+        else:
+            return {'{}.{}'.format(type(obj).__name__, obj.id): obj
+                    for obj in self.__session.query(cls)}
 
     def new(self, obj):
         """Add the object to the current database session"""
