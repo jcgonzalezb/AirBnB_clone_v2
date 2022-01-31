@@ -28,21 +28,20 @@ class BaseModel:
                 if "__class__" not in k:
                     setattr(self, k, v)
             if kwargs.get("created_at"):
-                kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                         '%Y-%m-%dT%H:%M:%S.%f')
+                kwargs['updated_at'] = datetime.strptime(
+                    kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
             else:
                 self.updated_at = datetime.now()
 
             if kwargs.get("created_at"):
-                kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                         '%Y-%m-%dT%H:%M:%S.%f')
+                kwargs['created_at'] = datetime.strptime(
+                    kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
             else:
                 self.created_at = datetime.now()
 
             if not self.id:
                 self.id = str(uuid.uuid4())
 
-            del kwargs['__class__']
             self.__dict__.update(kwargs)
 
     def __str__(self):
