@@ -12,6 +12,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+from shlex import split
 
 
 class HBNBCommand(cmd.Cmd):
@@ -19,6 +20,9 @@ class HBNBCommand(cmd.Cmd):
 
     # deetermines prompt for interactive/non-interactive modes
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
+
+    all_classes = {"BaseModel", "User", "State", "City",
+                   "Amenity", "Place", "Review"}
 
     classes = {
         'BaseModel': BaseModel, 'User': User, 'Place': Place,
@@ -214,21 +218,23 @@ class HBNBCommand(cmd.Cmd):
         print("Destroys an individual instance of a class")
         print("[Usage]: destroy <className> <objectId>\n")
 
-    def do_all(self, args):
+    def do_all(self, line):
         """ Shows all objects, or all objects of a class"""
-        print_list = []
-        if args:  # este me indica que hay argumentos (all clase)
-            args = args.split(' ')[0]
-            if args not in HBNBCommand.classes:
-                print("** class doesn't exist **")
-                return
-            for k, v in storage.all(args).items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
-        else:  # caso donde esta all solo
-            for k, v in storage.all().items():
-                print_list.append(str(v))
-        print(print_list)
+        try:
+            if not line:
+                objects = storage.all()
+            else:
+                args = split(line)
+                if args[0] not in self.all_classes:
+                    raise NameError()
+                objects = storage.all(eval(args[0]))
+        except NameError:
+            print("** class doesn't exist **")
+        else:
+            my_list = []
+            for key in objects:
+                my_list.append(objects[key])
+            print(my_list)
 
     def help_all(self):
         """ Help information for the all command """
