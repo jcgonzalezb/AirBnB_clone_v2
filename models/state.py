@@ -23,6 +23,8 @@ class State(BaseModel, Base):
             """ Return list of city instances if
             City.state_id==current State.id.
             FileStorage relationship between State and City"""
-            objects = models.storage.all(models.city.City)
-            return [city for city in objects.values()
-                    if city.state_id == self.id]
+            list_cities = []
+            for city in models.storage.all("City").values():
+                if city.state_id == self.id:
+                    list_cities.append(city)
+            return list_cities
