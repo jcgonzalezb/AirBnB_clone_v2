@@ -4,6 +4,7 @@ import cmd
 import sys
 import json
 from os import getenv
+import models
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -13,6 +14,10 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 from shlex import split
+import shlex
+
+classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
 
 
 class HBNBCommand(cmd.Cmd):
@@ -218,23 +223,22 @@ class HBNBCommand(cmd.Cmd):
         print("Destroys an individual instance of a class")
         print("[Usage]: destroy <className> <objectId>\n")
 
-    def do_all(self, line):
+    def do_all(self, arg):
         """ Shows all objects, or all objects of a class"""
-        try:
-            if not line:
-                objects = storage.all()
-            else:
-                args = split(line)
-                if args[0] not in self.all_classes:
-                    raise NameError()
-                objects = storage.all(eval(args[0]))
-        except NameError:
-            print("** class doesn't exist **")
+        args = shlex.split(arg)
+        obj_list = []
+        if len(args) == 0:
+            obj_dict = models.storage.all()
+        elif args[0] in classes:
+            obj_dict = models.storage.all(classes[args[0]])
         else:
-            my_list = []
-            for key in objects:
-                my_list.append(objects[key])
-            print(my_list)
+            print("** class doesn't exist **")
+            return False
+        for key in obj_dict:
+            obj_list.append(str(obj_dict[key]))
+        print("[", end="")
+        print(", ".join(obj_list), end="")
+        print("]")
 
     def help_all(self):
         """ Help information for the all command """
