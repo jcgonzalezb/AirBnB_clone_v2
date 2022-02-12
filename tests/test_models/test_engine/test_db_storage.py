@@ -88,45 +88,12 @@ class TestFileStorage(unittest.TestCase):
     def test_save(self):
         """Test that save properly saves objects to file.json"""
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_count_current(self):
-        """Test count() method of DB storage"""
-        clsObjects = storage.all()
-        clsCount = storage.count()
-        stateObjects = storage.all('State')
-        stateCount = storage.count(State)
 
-        self.assertEqual(len(clsObjects), clsCount)
-        self.assertEqual(len(stateObjects), stateCount)
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_count_add(self):
-        """Test count() method of DB storage, adding a new object"""
-        clsObjects = storage.all()
-        stateObjects = storage.all('State')
-
-        state = State(name='TestState')
-        state.save()
-
-        clsCount = storage.count()
-        stateCount = storage.count(State)
-
-        self.assertEqual((len(clsObjects) + 1), clsCount)
-        self.assertEqual((len(stateObjects) + 1), stateCount)
-
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_get(self):
-        """Test get() method of DB storage"""
-        state = State(name='TESTState2')
-        state.save()
-        self.assertEqual(storage.get('State', state.id), state)
-        self.assertIsNone(storage.get('State', '9543-qwer'))
-        self.assertIsNone(storage.get(None, state.id))
-
-    def test_count(self):
-        """Test the count method of DBStorage"""
-        count = models.storage.count("State")
-        self.assertIsInstance(count, int)
-        state = State(name="California")
-        state.save()
-        self.assertEqual(count + 1, models.storage.count("State"))
+class TestDBStorage(unittest.TestCase):
+    '''test the FileStorage'''
+    @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') != 'db', 'db')
+    def test_pep8_DBStorage(self):
+        """Tests pep8 style"""
+        style = pep8.StyleGuide(quiet=True)
+        p = style.check_files(['models/engine/db_storage.py'])
+        self.assertEqual(p.total_errors, 0, "fix pep8")
