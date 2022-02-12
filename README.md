@@ -143,8 +143,7 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 
 ## Authors
 
-* Justin Majetich, [justinmajetich](https://github.com/justinmajetich)
-* Ezra Nobrega, [eNobreg](https://github.com/eNobreg) | [@ezraNobrega](https://twitter.com/ezraNobrega)
-
-* Oscar Angel, [oangel26](https://github.com/oangel26)
-* Juan Camilo González, [jcgonzalezb](https://github.com/jcgonzalezb) | [@juankter](https://twitter.com/juankter)
+* Justin Majetich - [justinmajetich](https://github.com/justinmajetich)
+* Ezra Nobrega - [eNobreg](https://github.com/eNobreg) | [@ezraNobrega](https://twitter.com/ezraNobrega)
+* Oscar Angel - [oangel26](https://github.com/oangel26)
+* Juan Camilo González - [jcgonzalezb](https://github.com/jcgonzalezb) | [@juankter](https://twitter.com/juankter)
