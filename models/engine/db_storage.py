@@ -12,6 +12,9 @@ from models.review import Review
 from models.state import State
 from models.user import User
 
+classes = {"Amenity": Amenity, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
+
 
 class DBStorage:
     """This class manages storage of hbnb models in database format"""
@@ -31,18 +34,15 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Get a dictionary of all objects
-        Return:
-            returns a dictionary of objects
-        """
-        if cls is None:
-            classes = {Amenity, City, Place, Review, State, User}
-            return {'{}.{}'.format(type(obj).__name__, obj.id): obj
-                    for res in map(self.__session.query, classes)
-                    for obj in res}
-        else:
-            return {'{}.{}'.format(type(obj).__name__, obj.id): obj
-                    for obj in self.__session.query(cls)}
+        """query on the current database session"""
+        new_dict = {}
+        for clss in classes:
+            if cls is None or cls is classes[clss] or cls is clss:
+                objs = self.__session.query(classes[clss]).all()
+                for obj in objs:
+                    key = obj.__class__.__name__ + '.' + obj.id
+                    new_dict[key] = obj
+        return (new_dict)
 
     def new(self, obj):
         """Add the object to the current database session"""
